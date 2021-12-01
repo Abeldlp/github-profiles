@@ -1,9 +1,10 @@
 <template>
-    <div>
-        <router-link to="/github-profiles">
-            <h1>Logo</h1>
-        </router-link>
-        <p class="border-2 border-red-500">This is a tailwind test</p>
+    <div class="flex flex-wrap justify-center items-center">
+        <img src="@/assets/logo.svg" alt="company_logo" class="h-40 m-5"/>
+        <h1 class="text-5xl">
+            Github Profile 
+            <span style="color: #2784FF" class="font-bold">Peaker</span>
+        </h1>
     </div>
 </template>
 
