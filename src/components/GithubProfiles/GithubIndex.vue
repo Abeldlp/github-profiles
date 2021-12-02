@@ -27,7 +27,7 @@ export default defineComponent({
         ProfileCardIndex
     },
     setup(){
-        fetchAllProfiles('https://api.github.com/users') 
+        fetchAllProfiles() 
         const store = useStore()
 
         const githubProfiles: Ref<GithubProfile[]> = ref(store.state.githubProfiles)

@@ -1,9 +1,9 @@
 import axios from 'axios'
 import { store } from '../store/index'
 
-const fetchAllProfiles = async (endpoint: string): Promise<boolean | string> => {
+const fetchAllProfiles = async (): Promise<boolean | string> => {
     try {
-        const apiData = await axios.get(endpoint)
+        const apiData = await axios.get('https://api.github.com/users')
         const data = await apiData.data
         return store.dispatch('setGithubProfiles', data.slice(0, 10))
     } catch {

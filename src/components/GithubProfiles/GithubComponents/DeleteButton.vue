@@ -11,7 +11,7 @@
                 rounded
                 text-white
             ">
-            <VueFeather type="trash"/>
+            <VueFeather type="trash" style="height: 15px"/>
             Hide
         </button>
     </div>
@@ -20,6 +20,7 @@
 <script lang="ts">
 import { defineComponent } from 'vue'
 import VueFeather from 'vue-feather'
+import { useStore } from 'vuex'
 
 interface Props {
     profileId: number
@@ -37,7 +38,12 @@ export default defineComponent({
         }
     },
     setup(props: Props, {emit}){
-        const deleteProfile = ()  => {
+        const store = useStore()
+
+        const deleteProfile = (): void  => {
+            setTimeout(() => {
+                store.dispatch('removeGithubProfile', { id: props.profileId })
+            }, 500)
             emit('deleteProfile')
         }
 

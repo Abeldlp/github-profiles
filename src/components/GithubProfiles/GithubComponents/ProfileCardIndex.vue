@@ -1,6 +1,6 @@
 <template>
     <div 
-        id="card" 
+        ref="profileCard"
         class="
             flex 
             flex-col 
@@ -12,7 +12,6 @@
             w-60
             transition-all
             filter drop-shadow-md
-            hover:
         ">
         <img class="w-80" :src="profile.avatar_url" />
         <h1 class="text-lg text-white m-2">
@@ -22,9 +21,9 @@
         </h1>
         <div class="flex mb-5">
             <a class="m-2" target="_blank" :href="githubProfile.html_url" >
-                <button class=" p-2 rounded bg-white flex">
-                    <VueFeather class="" type="github" />
-                    Jump
+                <button class=" p-2 rounded bg-white flex justify-center items-center">
+                    <VueFeather type="github" style="height: 15px"/>
+                    <span>Jump</span>
                 </button>
             </a>
             <DeleteButton class="m-2" :profileId="githubProfile.id" @deleteProfile="removeProfileFromView"/>
@@ -57,6 +56,7 @@ export default defineComponent({
     },
     setup(props: Props){
         const githubProfile: Ref<GithubProfile> = ref(props.profile) 
+        const profileCard: Ref<HTMLElement|null> = ref(null)
 
         const formatName = computed(() => {
             return {
@@ -66,14 +66,17 @@ export default defineComponent({
         })
 
         const removeProfileFromView = () => {
-            gsap.to('#card', {
-                x: 30,
+            profileCard.value && profileCard.value.setAttribute('id', 'current')
+            gsap.to('#current', {
+                y: 30,
                 opacity: 0,
-                duration: 0.3
+                duration: 0.3,
+                display: 'none' 
             })
         }
         
         return {
+            profileCard,
             githubProfile,
             formatName,
             removeProfileFromView

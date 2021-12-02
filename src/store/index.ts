@@ -11,9 +11,15 @@ export const store = createStore<State>({
         }
     },
     actions: {
-        setGithubProfiles(context, payload) {
+        setGithubProfiles(context, payload: GithubProfile[]) {
             const profiles = context.state.githubProfiles
             profiles.push(...payload)
+            context.commit('UPDATE_GITHUB_PROFILES', profiles)
+        },
+        removeGithubProfile(context, payload: { id: number }) {
+            const profiles = context.state.githubProfiles
+            const selectedProfile = profiles.findIndex((profile: GithubProfile) => profile.id === payload.id)
+            profiles.splice(selectedProfile, 1)
             context.commit('UPDATE_GITHUB_PROFILES', profiles)
         }
     }
