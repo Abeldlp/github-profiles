@@ -3,13 +3,12 @@
         <div id="profile_header" class="flex flex-wrap justify-center items-center">
             <img class="w-20 m-3" src="@/assets/logo.svg"/> 
             <h1 class="text-6xl sm:text-6xl md:text-7xl lg:text-8xl mt-4 mb-3" >Where it <i style="color: #2784FF">all</i> started</h1>
-            <router-link to="/">now</router-link>
         </div>
         <div v-if="localPageLoading" class="loading_ring">
             <RingLoader id="loading_ring" color="#2784FF"/>
         </div>
         <div v-else id="card_container" >
-            <div v-if="positiveResponse" class="container flex flex-wrap justify-center items-center m-auto">
+            <div v-if="positiveResponse" id="github_card_container" class="container flex flex-wrap justify-center items-center m-auto">
                 <ProfileCardIndex 
                     v-for="profile in githubProfiles" 
                     :key="profile.id" 

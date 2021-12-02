@@ -1,6 +1,7 @@
 <template>
     <div>
         <button 
+            id="delete_button"
             @click="deleteProfile"
             class="
                 flex 
