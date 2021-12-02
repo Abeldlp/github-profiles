@@ -21,7 +21,7 @@ export default defineComponent({
     name: 'LandingPageButton',
     components: {
         VueFeather
-    }
+    },
 })
 </script>
 

@@ -13,7 +13,7 @@
             transition-all
             filter drop-shadow-md
         ">
-        <img class="w-80" :src="profile.avatar_url" />
+        <img class="w-80 rounded-t-lg" :src="profile.avatar_url" />
         <h1 class="text-lg text-white m-2">
             <span class="font-bold" style="color: #2784FF">{{formatName.firstLetter}}</span>
             {{formatName.restOfName}}

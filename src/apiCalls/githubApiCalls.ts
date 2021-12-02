@@ -8,7 +8,7 @@ const fetchAllProfiles = async (): Promise<boolean | string> => {
         return store.dispatch('setGithubProfiles', data.slice(0, 10))
     } catch {
         //notify or log the error
-        return 'error occured'
+        return 'error'
     }
 }
 
