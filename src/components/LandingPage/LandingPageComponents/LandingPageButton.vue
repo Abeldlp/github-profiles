@@ -5,7 +5,7 @@
                 id="checkout_button" 
                 class="border-2 m-3 p-3 flex justify-between w-40 rounded"
             >
-                <h1>Logo</h1> 
+                <VueFeather type="github" style="color: #2784FF"/>
                 <span>Checkout</span>
             </button>
         </router-link>
@@ -14,9 +14,13 @@
 
 <script lang="ts">
 import { defineComponent } from 'vue'
+import VueFeather from 'vue-feather';
 
 export default defineComponent({
     name: 'LandingPageButton',
+    components: {
+        VueFeather
+    }
 })
 </script>
 
