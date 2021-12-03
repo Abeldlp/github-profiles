@@ -40,5 +40,15 @@ npm run test:unit
 npm run test:e2e
 ```
 ### Steps to build the code
-//TODO finding a free hosting provider to automate deploy process
+The build steps to build this project are automated via [Vercel](https://vercel.com/).
+The pipeline for this project will run when the `main` branch is pushed or when a pull request is merged into `main`
+Changes pushed to main branch are directly deployed to production.
+Check [live site](https://github-profiles-zeta.vercel.app/)
+Pipeline steps.
+- Build the project with npm run build
+- Make sure that dist is the output directory
+- Making a workspace on root folder
+- Make sure that node ^14.x is installed
+- Install required packages
+- Serve the project
 
