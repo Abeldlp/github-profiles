@@ -40,5 +40,5 @@ npm run test:unit
 npm run test:e2e
 ```
 ### Steps to build the code
-//TODO
+//TODO finding a free hosting provider to automate deploy process
 
