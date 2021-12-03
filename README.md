@@ -52,3 +52,5 @@ Pipeline steps.
 - Install required packages
 - Serve the project
 
+Integrations
+- [Cheeckly](https://app.checklyhq.com/) - Run performance test and covers page analytics
