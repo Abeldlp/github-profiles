@@ -25,7 +25,7 @@ git clone https://github.com/Abeldlp/github-profiles.git
 ```
 - Install packages needed for the project
 ```sh
-npm install
+cd github-profiles && npm install
 ```
 - Serve the project locally
 ```sh
