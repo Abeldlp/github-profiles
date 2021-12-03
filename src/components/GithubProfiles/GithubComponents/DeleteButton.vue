@@ -1,7 +1,6 @@
 <template>
-    <div>
+    <div ref="deleteButton">
         <button 
-            id="delete_button"
             @click="deleteProfile"
             class="
                 flex 
@@ -19,9 +18,11 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, ref, Ref } from 'vue'
 import VueFeather from 'vue-feather'
 import { useStore } from 'vuex'
+import { gsap } from 'gsap'
+
 
 interface Props {
     profileId: number
@@ -40,16 +41,23 @@ export default defineComponent({
     },
     setup(props: Props, {emit}){
         const store = useStore()
+        const deleteButton : Ref<HTMLElement|null> = ref(null)
 
         const deleteProfile = (): void  => {
+            deleteButton.value && deleteButton.value.setAttribute('id', 'delete_button')
+            gsap.to('#delete_button', {
+                scale: 0,
+                rounded: 100
+            })
             setTimeout(() => {
                 store.dispatch('removeGithubProfile', { id: props.profileId })
-            }, 500)
+            }, 300)
             emit('deleteProfile')
         }
 
         return {
-            deleteProfile
+            deleteProfile,
+            deleteButton
         }
     }
 })

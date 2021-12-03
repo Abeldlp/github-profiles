@@ -1,6 +1,19 @@
 <template>
-  <router-view/>
+    <BackgroundParticles id="particles"/>
+    <router-view/>
 </template>
+
+<script lang="ts">
+import { defineComponent } from 'vue'
+import BackgroundParticles from './components/GlobalComponents/BackgroundParticles.vue'
+
+export default defineComponent({
+    components: {
+        BackgroundParticles
+    }
+})
+</script>
+
 
 <style>
 #app {
@@ -23,4 +36,9 @@
 #nav a.router-link-exact-active {
   color: #42b983;
 }
+
+#particles {
+    z-index: -100;
+}
+
 </style>

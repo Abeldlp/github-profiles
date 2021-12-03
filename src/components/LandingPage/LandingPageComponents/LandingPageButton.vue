@@ -3,7 +3,7 @@
         <router-link to="/github-profiles">
             <button 
                 id="checkout_button" 
-                class="border-2 m-3 p-3 flex justify-between w-40 rounded"
+                class="border-2 m-3 p-3 flex justify-between w-40 rounded bg-white"
             >
                 <VueFeather type="github" id="github_logo"/>
                 <VueFeather id="arrow_right" type="arrow-right" />
