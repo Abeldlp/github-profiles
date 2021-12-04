@@ -47,12 +47,15 @@ Changes pushed to main branch are directly deployed to production.
 Check [live site](https://github-profiles-zeta.vercel.app/)
 ### Pipeline steps
 - Runs Unit tests before starting build
-- Build the project with npm run build
+- Build the project
 - Make sure that dist is the output directory
 - Making a workspace on root folder
 - Make sure that node ^14.x is installed
 - Install required packages
 - Serve the project
+- Run reliability check
+- Run Performance test
+- Deploy to assigned domain
 
 Integrations
 - [Cheeckly](https://app.checklyhq.com/) - Run performance test and covers page analytics
