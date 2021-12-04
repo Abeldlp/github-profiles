@@ -45,7 +45,8 @@ The pipeline for this project will run when the `main` branch is pushed or when 
 
 Changes pushed to main branch are directly deployed to production.
 Check [live site](https://github-profiles-zeta.vercel.app/)
-`Pipeline steps`
+###Pipeline steps
+- Runs Unit tests before starting build
 - Build the project with npm run build
 - Make sure that dist is the output directory
 - Making a workspace on root folder
