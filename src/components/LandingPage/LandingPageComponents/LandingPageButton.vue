@@ -14,14 +14,25 @@
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, onMounted } from 'vue'
 import VueFeather from 'vue-feather';
+import { gsap } from 'gsap'
 
 export default defineComponent({
     name: 'LandingPageButton',
     components: {
         VueFeather
     },
+    setup(){
+        onMounted(() => {
+            gsap.from('.main_button', {
+                opacity: 0,
+                x: -10,
+                delay: 0.8
+            })
+
+        })
+    }
 })
 </script>
 

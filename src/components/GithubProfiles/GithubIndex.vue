@@ -4,12 +4,13 @@
             <img class="w-20 m-3" src="@/assets/logo.svg"/> 
             <h1 class="text-6xl sm:text-6xl md:text-7xl lg:text-8xl mt-4 mb-3" >Where it <i style="color: #2784FF">all</i> started</h1>
         </div>
-        <div v-if="localPageLoading" class="loading_ring">
+        <div v-show="localPageLoading" class="loading_ring">
             <RingLoader id="loading_ring" color="#2784FF"/>
         </div>
-        <div v-else id="card_container" >
+        <div v-show="!localPageLoading" id="card_container" >
             <div v-if="positiveResponse" id="github_card_container" class="container flex flex-wrap justify-center items-center m-auto">
                 <ProfileCardIndex 
+                    class="profile_card_index"
                     v-for="profile in githubProfiles" 
                     :key="profile.id" 
                     :profile="profile"
@@ -65,10 +66,12 @@ export default defineComponent({
             setTimeout(() => {
                 localPageLoading.value = false
                 setTimeout(() => {
-                    gsap.from('#card_container', {
+                    gsap.from('#github_card_container > .profile_card_index', {
                         opacity: 0,
                         y: 50,
-                        duration: 0.3,
+                        duration: 0.05,
+                        stagger: 0.02,
+                        overwrite: 'auto'
                     })
 
                 })
@@ -107,4 +110,5 @@ export default defineComponent({
         left: 50%;
         transform: translate(-50%, -50%);
     }
+
 </style>
