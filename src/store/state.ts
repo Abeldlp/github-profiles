@@ -9,3 +9,11 @@ export interface State {
     githubProfiles: GithubProfile[]
 }
 
+const state = {
+    githubProfiles: []
+}
+
+export {
+    state,
+}
+
