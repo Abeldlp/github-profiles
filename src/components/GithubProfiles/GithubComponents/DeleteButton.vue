@@ -6,12 +6,17 @@
                 flex 
                 justify-center 
                 items-center 
-                bg-red-400
-                p-2
-                rounded
+                py-2 
+                px-4 
+                rounded 
                 text-white
+                border
+                border-white
+                hover:bg-red-400
+                hover:border-red-400
+                transition-all
             ">
-            <VueFeather type="trash" style="height: 15px"/>
+            <VueFeather type="trash" class="mr-1" style="height: 15px"/>
             Hide
         </button>
     </div>
@@ -21,8 +26,6 @@
 import { defineComponent, ref, Ref } from 'vue'
 import VueFeather from 'vue-feather'
 import { useStore } from 'vuex'
-import { gsap } from 'gsap'
-
 
 interface Props {
     profileId: number
@@ -44,11 +47,6 @@ export default defineComponent({
         const deleteButton : Ref<HTMLElement|null> = ref(null)
 
         const deleteProfile = (): void  => {
-            deleteButton.value && deleteButton.value.setAttribute('id', 'delete_button')
-            gsap.to('#delete_button', {
-                scale: 0,
-                rounded: 100
-            })
             setTimeout(() => {
                 store.dispatch('removeGithubProfile', { id: props.profileId })
             }, 300)
@@ -62,5 +60,3 @@ export default defineComponent({
     }
 })
 </script>
-
-

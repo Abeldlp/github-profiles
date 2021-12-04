@@ -23,8 +23,9 @@ export default defineComponent({
             })
 
             gsap.from('#logo_text', {
-                x: -30,
+                x: 30,
                 opacity: 0,
+                delay: 0.8
             })
             
         })

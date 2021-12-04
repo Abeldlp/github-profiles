@@ -25,7 +25,7 @@ import ErrorComponent from './GithubComponents/ErrorComponent.vue'
 import ProfileCardIndex from './GithubComponents/ProfileCardIndex.vue'
 import RingLoader from 'vue-spinner/src/RingLoader.vue'
 import { GithubProfile } from '@/store/state'
-import { defineComponent, ref, Ref } from 'vue'
+import { defineComponent, ref, Ref, onMounted } from 'vue'
 import { fetchAllProfiles } from '@/apiCalls/githubApiCalls'
 import { gsap } from 'gsap'
 import { useStore } from 'vuex'
@@ -38,6 +38,11 @@ export default defineComponent({
         ErrorComponent
     },
     setup(){
+        const store = useStore()
+        const localPageLoading: Ref<boolean> = ref(true)
+        const positiveResponse: Ref<boolean> = ref(true)
+        const githubProfiles: Ref<GithubProfile[]> = ref(store.state.githubProfiles)
+
         const loadPage = (): void => {
             fetchAllProfiles()
                 .then(( res ) => {
@@ -49,11 +54,6 @@ export default defineComponent({
                     }
                 })
         }
-        const store = useStore()
-        const localPageLoading: Ref<boolean> = ref(true)
-        const positiveResponse: Ref<boolean> = ref(true)
-
-        const githubProfiles: Ref<GithubProfile[]> = ref(store.state.githubProfiles)
 
         const transitionToContent = (): void => {
                 gsap.to('#loading_ring', {
@@ -61,7 +61,6 @@ export default defineComponent({
                     scale: -1,
                     duration: 0.5,
                 })
-
 
             setTimeout(() => {
                 localPageLoading.value = false
@@ -76,7 +75,15 @@ export default defineComponent({
             }, 1000)
         }
 
+        onMounted(() => {
+            gsap.from('#profile_header', {
+                opacity: 0,
+                y: 30
+            })
+        })
+
         loadPage()
+
         return {
             localPageLoading,
             githubProfiles,
