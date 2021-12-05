@@ -1,8 +1,7 @@
 <template>
     <div>
-        <div>
-            <p class="font-bold text-2xl mb-3">Something went wrong :(</p>
-            <button class="
+        <button 
+            class="
                 border-2 
                 p-2 
                 rounded 
@@ -14,13 +13,12 @@
                 items-center
                 bg-white
                 m-auto
-                "
-                @click="reloadPage"
-            >
-                <p>Retry</p>
-                <VueFeather type="heart"  style="height: 15px; padding-left: 5px;"/>
-            </button>
-        </div>
+            "
+            @click="reloadCards"
+        >
+            <p>Bring them back</p>
+            <VueFeather type="heart"  style="height: 15px; padding-left: 5px;"/>
+        </button>
     </div>
 </template>
 
@@ -29,19 +27,20 @@ import { defineComponent } from 'vue'
 import VueFeather from 'vue-feather'
 
 export default defineComponent({
-    name: 'ErrorComponent',
+    name: 'ReloadCardButton',
     components: {
         VueFeather
     },
     setup(props, {emit}){
-        const reloadPage = () => {
-            emit('retry')
+        const reloadCards = (): void => {
+            emit('reloadCards')
         }
 
         return {
-            reloadPage
+            reloadCards
         }
     }
+
 })
 </script>
 

@@ -23,28 +23,12 @@
                     :profile="profile"
                 />
             </div>
-            <button 
-                class="
-                    border-2 
-                    p-2 
-                    rounded 
-                    hover:bg-blue-500 
-                    hover:text-white 
-                    transition-all
-                    flex
-                    justify-between
-                    items-center
-                    bg-white
-                    m-auto
-                "
-                @click="reloadPage"
-                v-if="positiveResponse && !githubProfilesNotEmpty" 
+            <ReloadCardButton
+                @reloadCards="reloadPage"
                 id="error_section" 
-            >
-                <p>Bring them back</p>
-                <VueFeather type="heart"  style="height: 15px; padding-left: 5px;"/>
-            </button>
+                v-if="positiveResponse && !githubProfilesNotEmpty"/>
             <ErrorComponent 
+                @retry="reloadPage"
                 v-if="!positiveResponse" 
                 id="error_section"/>
         </div>
@@ -54,21 +38,21 @@
 <script lang="ts">
 import ErrorComponent from './GithubComponents/ErrorComponent.vue'
 import ProfileCardIndex from './GithubComponents/ProfileCardIndex.vue'
+import ReloadCardButton from './GithubComponents/ReloadCardButton.vue'
 import RingLoader from 'vue-spinner/src/RingLoader.vue'
 import { GithubProfile } from '@/store/state'
 import { defineComponent, ref, Ref, onMounted, ComputedRef, computed } from 'vue'
 import { fetchGithubProfiles } from '@/apiCalls/githubApiCalls'
 import { gsap } from 'gsap'
 import { useStore } from 'vuex'
-import VueFeather from 'vue-feather'
 
 export default defineComponent({
     name: 'GithubIndex',
     components: {
-        ProfileCardIndex,
-        RingLoader,
         ErrorComponent,
-        VueFeather
+        ProfileCardIndex,
+        ReloadCardButton,
+        RingLoader,
     },
     setup(){
         const store = useStore()
@@ -76,9 +60,10 @@ export default defineComponent({
         const positiveResponse: Ref<boolean> = ref(true)
         const githubProfiles: Ref<GithubProfile[]> = ref(store.state.githubProfiles)
         const githubProfilesNotEmpty: ComputedRef<boolean> = computed(() => githubProfiles.value.length > 0)
+        const neededCards: Ref<number> = ref(10)
 
         const loadPage = (): void => {
-            fetchGithubProfiles(10)
+            fetchGithubProfiles(neededCards.value)
                 .then(( res ) => {
                     if(res === 'error') {
                         positiveResponse.value = false
@@ -113,7 +98,7 @@ export default defineComponent({
             }, delay * 1000)
         }
 
-        const reloadPage = () => {
+        const reloadPage = (): void => {
             localPageLoading.value = true
             gsap.to('#loading_ring', {
                 opacity: 1,
@@ -132,9 +117,9 @@ export default defineComponent({
         loadPage()
 
         return {
-            localPageLoading,
             githubProfiles,
             githubProfilesNotEmpty,
+            localPageLoading,
             positiveResponse,
             reloadPage,
         }
