@@ -58,7 +58,7 @@ export default defineComponent({
             background: 'linear-gradient(to bottom, rgba(0, 0, 0, 0) 50%, #213C5A 100%), url(' + githubProfile.value.avatar_url + ')',
             backgroundSize: 'cover',
             backgroundPosition: 'center',
-            borderRadius: '8px'
+            borderRadius: '8px',
         })
 
         const formatName = computed(() => {
@@ -106,5 +106,6 @@ export default defineComponent({
 
 #card_template:hover #profile_image {
     transform: scale(1.05);
+    opacity: 0.8;
 }
 </style>

@@ -15,7 +15,8 @@ interface Style {
     animationDuration: string ,
     animationDelay: string,
     transformOrigin: string,
-    boxShadow: string 
+    boxShadow: string,
+    userSelect: string,
 }
 
 export default defineComponent({
@@ -43,7 +44,8 @@ export default defineComponent({
                 animationDuration: randomNumberTo(400) + 50 + 's',
                 animationDelay: -Math.abs(randomNumberTo(400)) + 's',
                 transformOrigin: buildRandomOrigin(),
-                boxShadow: buildRandomShadow()
+                boxShadow: buildRandomShadow(),
+                userSelect: 'none',
             }
         }
 
@@ -54,8 +56,6 @@ export default defineComponent({
         const buildRandomShadow = (): string => {
             return possibleNVim.value[randomNumberTo(2)] + ' 0 ' + randomNvim() + ' currentColor'
         }
-
-        console.log(buildRandomStyle())
 
         return {
             particleCount,

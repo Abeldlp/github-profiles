@@ -12,6 +12,7 @@
                 flex
                 justify-between
                 items-center
+                bg-white
                 m-auto
                 "
                 @click="reloadPage"

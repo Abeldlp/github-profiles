@@ -47,35 +47,38 @@ export default defineComponent({
         const loadPage = (): void => {
             fetchAllProfiles()
                 .then(( res ) => {
-                    if( res === 'error') {
+                    if(res === 'error') {
                         positiveResponse.value = false
-                        transitionToContent()
-                    } else {
-                        transitionToContent()
                     }
+                    transitionToContent(0.5)
                 })
         }
 
-        const transitionToContent = (): void => {
-                gsap.to('#loading_ring', {
-                    opacity: 0,
-                    scale: -1,
-                    duration: 0.5,
-                })
+        const transitionToContent = (transitionDuration: number): void => {
+            removeLoadingRingFromView(transitionDuration)
+            renderProfileCardToView(transitionDuration)
+        }
 
-            setTimeout(() => {
+        const removeLoadingRingFromView = (duration: number): void => {
+            gsap.to('#loading_ring', {
+                opacity: 0,
+                scale: -1,
+                duration: duration,
+            })
+        }
+
+        const renderProfileCardToView = (delay: number): void => {
+            setTimeout(() => { 
                 localPageLoading.value = false
-                setTimeout(() => {
-                    gsap.from('#github_card_container > .profile_card_index', {
-                        opacity: 0,
-                        y: 50,
-                        duration: 0.05,
-                        stagger: 0.02,
-                        overwrite: 'auto'
-                    })
-
+                gsap.from('#github_card_container > .profile_card_index', {
+                    opacity: 0,
+                    y: 50,
+                    duration: 0.05,
+                    stagger: 0.02,
+                    overwrite: 'auto'
                 })
-            }, 1000)
+            }, delay * 1000)
+
         }
 
         onMounted(() => {
