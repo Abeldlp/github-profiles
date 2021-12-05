@@ -1,9 +1,9 @@
 import { expect } from 'chai'
-import { fetchAllProfiles } from '../../src/apiCalls/githubApiCalls'
+import { fetchGithubProfiles } from '../../src/apiCalls/githubApiCalls'
 
 describe('ApiCalls', () => {
     it('can fetch github profiles', () => {
-        const data = fetchAllProfiles()
+        const data = fetchGithubProfiles(1)
         expect(data).to.not.null
     })
 })

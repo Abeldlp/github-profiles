@@ -1,11 +1,13 @@
 import axios from 'axios'
 import { store } from '../store/index'
 
-const fetchAllProfiles = async (): Promise<boolean | string> => {
+const fetchGithubProfiles = async (profilesNeeded = 0): Promise<boolean | string> => {
     try {
         const apiData = await axios.get('https://api.github.com/users')
         const data = await apiData.data
-        return store.dispatch('setGithubProfiles', data.slice(0, 10))
+        return profilesNeeded > 0 ?
+            store.dispatch('setGithubProfiles', data.slice(0, profilesNeeded)) :
+            store.dispatch('setGithubProfiles', data)
     } catch {
         //notify or log the error
         return 'error'
@@ -13,5 +15,5 @@ const fetchAllProfiles = async (): Promise<boolean | string> => {
 }
 
 export {
-    fetchAllProfiles
+    fetchGithubProfiles
 }

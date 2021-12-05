@@ -2,13 +2,20 @@
     <div>
         <div id="profile_header" class="flex flex-wrap justify-center items-center">
             <img class="w-20 m-3" src="@/assets/logo.svg"/> 
-            <h1 class="text-6xl sm:text-6xl md:text-7xl lg:text-8xl mt-4 mb-3" >Where it <i style="color: #2784FF">all</i> started</h1>
+            <h1 
+                class="text-6xl sm:text-6xl md:text-7xl lg:text-8xl mt-4 mb-3" >
+                Where it <i style="color: #2784FF">all</i> started
+            </h1>
         </div>
         <div v-show="localPageLoading" class="loading_ring">
             <RingLoader id="loading_ring" color="#2784FF"/>
         </div>
         <div v-show="!localPageLoading" id="card_container" >
-            <div v-if="positiveResponse" id="github_card_container" class="container flex flex-wrap justify-center items-center m-auto">
+            <div 
+                v-if="positiveResponse && githubProfilesNotEmpty" 
+                id="github_card_container" 
+                class="container flex flex-wrap justify-center items-center m-auto"
+            >
                 <ProfileCardIndex 
                     class="profile_card_index"
                     v-for="profile in githubProfiles" 
@@ -16,7 +23,30 @@
                     :profile="profile"
                 />
             </div>
-            <ErrorComponent v-else id="error_section"/>
+            <button 
+                class="
+                    border-2 
+                    p-2 
+                    rounded 
+                    hover:bg-blue-500 
+                    hover:text-white 
+                    transition-all
+                    flex
+                    justify-between
+                    items-center
+                    bg-white
+                    m-auto
+                "
+                @click="reloadPage"
+                v-if="positiveResponse && !githubProfilesNotEmpty" 
+                id="error_section" 
+            >
+                <p>Bring them back</p>
+                <VueFeather type="heart"  style="height: 15px; padding-left: 5px;"/>
+            </button>
+            <ErrorComponent 
+                v-if="!positiveResponse" 
+                id="error_section"/>
         </div>
     </div>
 </template>
@@ -26,26 +56,29 @@ import ErrorComponent from './GithubComponents/ErrorComponent.vue'
 import ProfileCardIndex from './GithubComponents/ProfileCardIndex.vue'
 import RingLoader from 'vue-spinner/src/RingLoader.vue'
 import { GithubProfile } from '@/store/state'
-import { defineComponent, ref, Ref, onMounted } from 'vue'
-import { fetchAllProfiles } from '@/apiCalls/githubApiCalls'
+import { defineComponent, ref, Ref, onMounted, ComputedRef, computed } from 'vue'
+import { fetchGithubProfiles } from '@/apiCalls/githubApiCalls'
 import { gsap } from 'gsap'
 import { useStore } from 'vuex'
+import VueFeather from 'vue-feather'
 
 export default defineComponent({
     name: 'GithubIndex',
     components: {
         ProfileCardIndex,
         RingLoader,
-        ErrorComponent
+        ErrorComponent,
+        VueFeather
     },
     setup(){
         const store = useStore()
         const localPageLoading: Ref<boolean> = ref(true)
         const positiveResponse: Ref<boolean> = ref(true)
         const githubProfiles: Ref<GithubProfile[]> = ref(store.state.githubProfiles)
+        const githubProfilesNotEmpty: ComputedRef<boolean> = computed(() => githubProfiles.value.length > 0)
 
         const loadPage = (): void => {
-            fetchAllProfiles()
+            fetchGithubProfiles(10)
                 .then(( res ) => {
                     if(res === 'error') {
                         positiveResponse.value = false
@@ -78,7 +111,15 @@ export default defineComponent({
                     overwrite: 'auto'
                 })
             }, delay * 1000)
+        }
 
+        const reloadPage = () => {
+            localPageLoading.value = true
+            gsap.to('#loading_ring', {
+                opacity: 1,
+                scale: -1,
+            })
+            loadPage()
         }
 
         onMounted(() => {
@@ -93,7 +134,9 @@ export default defineComponent({
         return {
             localPageLoading,
             githubProfiles,
-            positiveResponse
+            githubProfilesNotEmpty,
+            positiveResponse,
+            reloadPage,
         }
     }
 })
