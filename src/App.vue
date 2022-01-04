@@ -1,17 +1,17 @@
 <template>
-    <BackgroundParticles id="particles"/>
-    <router-view/>
+  <BackgroundParticles id="particles" />
+  <router-view />
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
-import BackgroundParticles from './components/GlobalComponents/BackgroundParticles.vue'
+import { defineComponent } from "vue";
+import BackgroundParticles from "./components/GlobalComponents/BackgroundParticles.vue";
 
 export default defineComponent({
-    components: {
-        BackgroundParticles
-    }
-})
+  components: {
+    BackgroundParticles,
+  },
+});
 </script>
 
 
@@ -30,7 +30,6 @@ a {
 }
 
 #particles {
-    z-index: -100;
+  z-index: -100;
 }
-
 </style>
